@@ -1,4 +1,4 @@
-package committee.nova.mods.renderblender.client.model.eternal;
+package committee.nova.mods.renderblender.client.model.unstable;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -29,16 +29,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+public class HaloUnstableBakedModel extends WrappedItemModel {
 
-public class HaloEternalBakedModel extends WrappedItemModel {
-
-    public static final float[] ETERNAL_UVS = new float[40];
+    public static final float[] UNSTABLE_UVS = new float[40];
     private final Random random;
     private final BakedQuad haloQuad;
     private final boolean pulse;
     private final List<ResourceLocation> maskSprite;
 
-    public HaloEternalBakedModel(BakedModel wrapped, TextureAtlasSprite sprite, int color, int size, boolean pulse, List<ResourceLocation> maskSprite) {
+    public HaloUnstableBakedModel(BakedModel wrapped, TextureAtlasSprite sprite, int color, int size, boolean pulse, List<ResourceLocation> maskSprite) {
         super(wrapped);
         this.random = new Random();
         this.haloQuad = generateHaloQuad(sprite, size, color);
@@ -84,8 +83,6 @@ public class HaloEternalBakedModel extends WrappedItemModel {
         } else {
             this.parentState = TransformUtils.DEFAULT_ITEM;
         }
-
-
         if (transformType == ItemDisplayContext.GUI) {
             Minecraft.getInstance().getItemRenderer()
                     .renderQuadList(pStack, source.getBuffer(ItemBlockRenderTypes.getRenderType(stack, true)), List.of(this.haloQuad), stack, light, overlay);
@@ -118,27 +115,25 @@ public class HaloEternalBakedModel extends WrappedItemModel {
             pitch = -(float) (mc.player.getXRot() * 2.0f * Math.PI / 360.0);
         }
 
-        RBShaders.eternalTime
+        RBShaders.unstableTime
                 .set((System.currentTimeMillis() - RBShaders.renderTime) / 2000.0F);
-        RBShaders.eternalYaw.set(yaw);
-        RBShaders.eternalPitch.set(pitch);
-        RBShaders.eternalExternalScale.set(scale);
-
-        RBShaders.eternalOpacity.set(1.5F);
-
+        RBShaders.unstableYaw.set(yaw);
+        RBShaders.unstablePitch.set(pitch);
+        RBShaders.unstableExternalScale.set(scale);
+        RBShaders.unstableOpacity.set(1.5F);
 
         for (int i = 0; i < 10; ++i) {
             TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(RenderBlenderLib.rl("misc/cosmic_" + i));
-            ETERNAL_UVS[i * 4] = sprite.getU0();
-            ETERNAL_UVS[i * 4 + 1] = sprite.getV0();
-            ETERNAL_UVS[i * 4 + 2] = sprite.getU1();
-            ETERNAL_UVS[i * 4 + 3] = sprite.getV1();
+            UNSTABLE_UVS[i * 4] = sprite.getU0();
+            UNSTABLE_UVS[i * 4 + 1] = sprite.getV0();
+            UNSTABLE_UVS[i * 4 + 2] = sprite.getU1();
+            UNSTABLE_UVS[i * 4 + 3] = sprite.getV1();
         }
-        if (RBShaders.eternalUVs != null) {
-            RBShaders.eternalUVs.set(ETERNAL_UVS);
+        if (RBShaders.unstableUVs != null) {
+            RBShaders.unstableUVs.set(UNSTABLE_UVS);
         }
 
-        final VertexConsumer cons = source.getBuffer(RBRenderTypes.ETERNAL);
+        final VertexConsumer cons = source.getBuffer(RBRenderTypes.UNSTABLE);
         List<TextureAtlasSprite> atlasSprite = new ArrayList<>();
         for (ResourceLocation res : maskSprite) {
             atlasSprite.add(Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(res));

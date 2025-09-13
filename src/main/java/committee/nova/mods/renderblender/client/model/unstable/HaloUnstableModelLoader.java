@@ -1,4 +1,4 @@
-package committee.nova.mods.renderblender.client.model.cosmic;
+package committee.nova.mods.renderblender.client.model.unstable;
 
 import com.google.gson.*;
 import committee.nova.mods.renderblender.client.model.HaloModelLoader;
@@ -18,24 +18,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-
-public class HaloCosmicModelLoader implements IGeometryLoader<HaloCosmicModelLoader.HaloCosmicGeometry> {
-    public static final HaloCosmicModelLoader INSTANCE = new HaloCosmicModelLoader();
+public class HaloUnstableModelLoader implements IGeometryLoader<HaloUnstableModelLoader.HaloUnstableGeometry> {
+    public static final HaloUnstableModelLoader INSTANCE = new HaloUnstableModelLoader();
 
     @Override
-    public HaloCosmicGeometry read(JsonObject modelContents, JsonDeserializationContext deserializationContext) throws JsonParseException {
-
+    public HaloUnstableGeometry read(JsonObject modelContents, JsonDeserializationContext deserializationContext) throws JsonParseException {
         final JsonObject halo = modelContents.getAsJsonObject("halo");
         if (halo == null) {
             throw new IllegalStateException("Missing 'halo' object.");
         }
 
-
-        final JsonObject cosmic = modelContents.getAsJsonObject("cosmic");
-        if (cosmic == null) {
-            throw new IllegalStateException("Missing 'cosmic' object.");
+        final JsonObject unstable = modelContents.getAsJsonObject("unstable");
+        if (unstable == null) {
+            throw new IllegalStateException("Missing 'unstable' object.");
         }
-
 
         final IntArrayList layerColors = new IntArrayList();
         final JsonArray layerColorsArr = modelContents.getAsJsonArray("layerColors");
@@ -44,6 +40,8 @@ public class HaloCosmicModelLoader implements IGeometryLoader<HaloCosmicModelLoa
                 layerColors.add(jsonElement.getAsInt());
             }
         }
+
+
         final String texture = GsonHelper.getAsString(halo, "texture");
         final int color = GsonHelper.getAsInt(halo, "color");
         final int size = GsonHelper.getAsInt(halo, "size");
@@ -51,25 +49,24 @@ public class HaloCosmicModelLoader implements IGeometryLoader<HaloCosmicModelLoa
 
 
         List<String> maskTexture = new ArrayList<>();
-        if (cosmic.has("mask") && cosmic.get("mask").isJsonArray()) {
-            JsonArray masks = cosmic.getAsJsonArray("mask");
+        if (unstable.has("mask") && unstable.get("mask").isJsonArray()) {
+            JsonArray masks = unstable.getAsJsonArray("mask");
             for (int i = 0; i < masks.size(); i++) {
                 maskTexture.add(masks.get(i).getAsString());
             }
         } else {
-            maskTexture.add(GsonHelper.getAsString(cosmic, "mask"));
+            maskTexture.add(GsonHelper.getAsString(unstable, "mask"));
         }
-
 
         final JsonObject clean = modelContents.deepCopy();
         clean.remove("halo");
-        clean.remove("cosmic");
+        clean.remove("unstable");
         clean.remove("loader");
         final BlockModel baseModel = deserializationContext.deserialize(clean, BlockModel.class);
-        return new HaloCosmicGeometry(baseModel, layerColors, texture, color, size, pulse, maskTexture);
+        return new HaloUnstableGeometry(baseModel, layerColors, texture, color, size, pulse, maskTexture);
     }
 
-    public static class HaloCosmicGeometry implements IUnbakedGeometry<HaloCosmicGeometry> {
+    public static class HaloUnstableGeometry implements IUnbakedGeometry<HaloUnstableGeometry> {
         private final BlockModel baseModel;
         private final IntList layerColors;
         private final String texture;
@@ -78,8 +75,8 @@ public class HaloCosmicModelLoader implements IGeometryLoader<HaloCosmicModelLoa
         private final boolean pulse;
         private final List<String> maskTextures;
 
-        public HaloCosmicGeometry(final BlockModel baseModel, final IntList layerColors, final String texture,
-                                  final int color, final int size, final boolean pulse, final List<String> maskTextures) {
+        public HaloUnstableGeometry(final BlockModel baseModel, final IntList layerColors, final String texture,
+                                    final int color, final int size, final boolean pulse, final List<String> maskTextures) {
             this.baseModel = baseModel;
             this.layerColors = layerColors;
             this.texture = texture;
@@ -103,7 +100,7 @@ public class HaloCosmicModelLoader implements IGeometryLoader<HaloCosmicModelLoa
             this.maskTextures.forEach(mask -> textures.add(new ResourceLocation(mask)));
 
 
-            return new HaloCosmicBakedModel(HaloModelLoader.HaloItemModelGeometry.tintLayers(bakedBaseModel, layerColors),
+            return new HaloUnstableBakedModel(HaloModelLoader.HaloItemModelGeometry.tintLayers(bakedBaseModel, layerColors),
                     particle, this.color, this.size, this.pulse, textures);
         }
 

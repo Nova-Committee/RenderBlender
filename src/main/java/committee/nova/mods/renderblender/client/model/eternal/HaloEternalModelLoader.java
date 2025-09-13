@@ -91,18 +91,18 @@ public class HaloEternalModelLoader implements IGeometryLoader<HaloEternalModelL
 
         @Override
         public BakedModel bake(IGeometryBakingContext context, ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelState, ItemOverrides overrides, ResourceLocation modelLocation) {
-            // 烘焙基础模型
+
             BakedModel bakedBaseModel = this.baseModel.bake(baker, this.baseModel, spriteGetter, modelState, modelLocation, true);
 
-            // 获取Halo纹理
+
             Material particleLocation = this.baseModel.getMaterial(this.texture);
             TextureAtlasSprite particle = spriteGetter.apply(particleLocation);
 
-            // 处理Eternal遮罩纹理
+
             List<ResourceLocation> textures = new ArrayList<>();
             this.maskTextures.forEach(mask -> textures.add(new ResourceLocation(mask)));
 
-            // 创建融合了Halo和Eternal效果的模型
+
             return new HaloEternalBakedModel(HaloModelLoader.HaloItemModelGeometry.tintLayers(bakedBaseModel, layerColors),
                     particle, this.color, this.size, this.pulse, textures);
         }

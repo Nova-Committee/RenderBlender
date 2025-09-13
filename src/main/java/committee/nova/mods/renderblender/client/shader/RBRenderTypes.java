@@ -4,9 +4,11 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import committee.nova.mods.renderblender.RenderBlenderLib;
 import committee.nova.mods.renderblender.Res;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
 
 import static net.minecraft.client.renderer.RenderStateShard.*;
 
@@ -90,17 +92,6 @@ public class RBRenderTypes {
                     .setTextureState(RenderStateShard.BLOCK_SHEET)
                     .createCompositeState(true));
 
-    public static RenderType glow(ResourceLocation tex) {
-        return RenderType.create(RenderBlenderLib.rl("glow").toString(),
-                DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 2097152, true, false,
-                RenderType.CompositeState.builder()
-                        .setShaderState(RenderStateShard.POSITION_COLOR_TEX_LIGHTMAP_SHADER)
-                        .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
-                        .setCullState(RenderStateShard.NO_CULL)
-                        .setLayeringState(RenderStateShard.VIEW_OFFSET_Z_LAYERING)
-                        .setTextureState(new RenderStateShard.TextureStateShard(tex, false, false))
-                        .createCompositeState(true));
-    }
 
     public static RenderType armorMask(final ResourceLocation tex) {
         return RenderType.create(RenderBlenderLib.rl( "armor_mask").toString(),
@@ -128,4 +119,19 @@ public class RBRenderTypes {
                         .setCullState(RenderType.NO_CULL)
                         .createCompositeState(true));
     }
+
+    public static final RenderType GLOWING_OUTLINE = RenderType.create(
+            RenderBlenderLib.rl("glowing_outline").toString(),
+            DefaultVertexFormat.NEW_ENTITY,
+            VertexFormat.Mode.QUADS,
+            256,
+            RenderType.CompositeState.builder()
+                    .setShaderState(RENDERTYPE_OUTLINE_SHADER)
+                    .setTextureState(RenderStateShard.BLOCK_SHEET_MIPPED)
+                    .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
+                    .setCullState(RenderStateShard.NO_CULL)
+                    .setLightmapState(RenderStateShard.LIGHTMAP)
+                    .setWriteMaskState(RenderStateShard.COLOR_WRITE)
+                    .createCompositeState(false));
+
 }

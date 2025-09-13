@@ -28,6 +28,7 @@ public class RBShaders {
     public static CCShaderInstance ETERNAL_SHADER;
     public static CCShaderInstance HELL_SHADER;
     public static CCShaderInstance UNSTABLE_SHADER;
+    public static CCShaderInstance GLOW_EDGE_SHADER;
 
     public static Uniform cosmicTime;
     public static Uniform cosmicYaw;
@@ -57,18 +58,26 @@ public class RBShaders {
     public static Uniform unstableOpacity;
     public static Uniform unstableUVs;
 
+    // Glow Edge shader uniforms
+    public static Uniform glowColor;
+    public static Uniform glowWidth;
+    public static Uniform glowTime;
+
     public static void onRegisterShaders(RegisterShadersEvent event) {
+
         COSMIC_SHADER = CCShaderInstance.create(event.getResourceProvider(), new ResourceLocation(RenderBlenderLib.MOD_ID, "cosmic"), DefaultVertexFormat.BLOCK);
         COSMIC_ARMOR_SHADER = CCShaderInstance.create(event.getResourceProvider(), new ResourceLocation(RenderBlenderLib.MOD_ID, "cosmic"), DefaultVertexFormat.NEW_ENTITY);
         ETERNAL_SHADER = CCShaderInstance.create(event.getResourceProvider(), new ResourceLocation(RenderBlenderLib.MOD_ID, "eternal"), DefaultVertexFormat.BLOCK);
         HELL_SHADER = CCShaderInstance.create(event.getResourceProvider(), new ResourceLocation(RenderBlenderLib.MOD_ID, "hell"), DefaultVertexFormat.BLOCK);
         UNSTABLE_SHADER = CCShaderInstance.create(event.getResourceProvider(), new ResourceLocation(RenderBlenderLib.MOD_ID, "unstable"), DefaultVertexFormat.BLOCK);
+        GLOW_EDGE_SHADER = CCShaderInstance.create(event.getResourceProvider(), new ResourceLocation(RenderBlenderLib.MOD_ID, "glow_edge"), DefaultVertexFormat.NEW_ENTITY);
 
         event.registerShader(COSMIC_SHADER, RBShaders::cosmicShader);
         event.registerShader(COSMIC_ARMOR_SHADER, RBShaders::cosmicShader);
         event.registerShader(ETERNAL_SHADER, RBShaders::eternalShader);
         event.registerShader(HELL_SHADER, RBShaders::hellShader);
         event.registerShader(UNSTABLE_SHADER, RBShaders::unstableShader);
+        event.registerShader(GLOW_EDGE_SHADER, RBShaders::glowEdgeShader);
     }
 
     public static void cosmicShader(ShaderInstance e){
@@ -126,6 +135,26 @@ public class RBShaders {
             unstableTime.set((float) renderTime + renderFrame);
         });
     }
+
+    public static void glowEdgeShader(ShaderInstance e) {
+        GLOW_EDGE_SHADER = (CCShaderInstance) e;
+
+        // 添加更好的错误处理，避免NullPointerException
+        glowColor = GLOW_EDGE_SHADER.getUniform("glowColor");
+        glowWidth = GLOW_EDGE_SHADER.getUniform("glowWidth");
+        glowTime = GLOW_EDGE_SHADER.getUniform("time");
+
+        // 只有在uniform存在时才设置初始值
+        if (glowTime != null) {
+            glowTime.set((float) renderTime + renderFrame);
+            GLOW_EDGE_SHADER.onApply(() -> {
+                if (glowTime != null) {
+                    glowTime.set((float) renderTime + renderFrame);
+                }
+            });
+        }
+    }
+
     @SubscribeEvent
     public static void clientTick(TickEvent.ClientTickEvent event) {
         if (!Minecraft.getInstance().isPaused() && event.phase == TickEvent.Phase.END) {

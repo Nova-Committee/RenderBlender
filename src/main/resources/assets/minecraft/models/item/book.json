@@ -1,17 +1,12 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "minecraft:item/book",
-    "halo": "renderblender:misc/halo"
+    "layer0": "minecraft:item/book"
   },
-  "loader": "renderblender:halo_cosmic",
-  "halo": {
-    "texture": "#halo",
-    "color": -16777216,
-    "size": 10,
-    "pulse": false
-  },
-  "cosmic": {
-    "mask": "renderblender:mask/book_mask"
+  "loader": "renderblender:glow_edge",
+  "glow_edge": {
+    "color": 16711680,
+    "width": 1.0,
+    "offset": -0.02
   }
 }

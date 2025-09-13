@@ -6,7 +6,9 @@ import committee.nova.mods.renderblender.client.model.cosmic.CosmicModelLoader;
 import committee.nova.mods.renderblender.client.model.cosmic.HaloCosmicModelLoader;
 import committee.nova.mods.renderblender.client.model.eternal.EternalModelLoader;
 import committee.nova.mods.renderblender.client.model.eternal.HaloEternalModelLoader;
+import committee.nova.mods.renderblender.client.model.hell.HaloHellModelLoader;
 import committee.nova.mods.renderblender.client.model.hell.HellModelLoader;
+import committee.nova.mods.renderblender.client.model.unstable.HaloUnstableModelLoader;
 import committee.nova.mods.renderblender.client.model.unstable.UnstableModelLoader;
 import committee.nova.mods.renderblender.client.shader.RBShaders;
 import net.minecraftforge.api.distmarker.Dist;
@@ -31,7 +33,10 @@ public class RenderBlenderClient {
         event.register("eternal", EternalModelLoader.INSTANCE);
         event.register("hell", HellModelLoader.INSTANCE);
         event.register("unstable", UnstableModelLoader.INSTANCE);
+        event.register("halo_unstable", HaloUnstableModelLoader.INSTANCE);
+        event.register("halo_hell", HaloHellModelLoader.INSTANCE);
         event.register("halo_cosmic", HaloCosmicModelLoader.INSTANCE);
         event.register("halo_eternal", HaloEternalModelLoader.INSTANCE);
+        event.register("glow_edge", GlowEdgeModelLoader.INSTANCE);
     }
 }

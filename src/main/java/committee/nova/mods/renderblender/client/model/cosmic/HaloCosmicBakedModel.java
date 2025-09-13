@@ -97,13 +97,13 @@ public class HaloCosmicBakedModel extends WrappedItemModel {
             }
         }
 
-        // 渲染基础模型
+
         this.renderWrapped(stack, pStack, source, light, overlay, true);
         if (source instanceof MultiBufferSource.BufferSource bs) {
             bs.endBatch();
         }
 
-        // 渲染Cosmic效果
+
         final Minecraft mc = Minecraft.getInstance();
         float yaw = 0.0f;
         float pitch = 0.0f;
