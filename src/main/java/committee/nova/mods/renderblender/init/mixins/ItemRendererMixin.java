@@ -29,9 +29,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ItemRendererMixin {
 
     @Unique
-    ItemStack avaritia$stack;
+    ItemStack renderblender$stack;
     @Unique
-    VertexConsumer avaritia$vertexConsumer;
+    VertexConsumer renderblender$vertexConsumer;
     @Shadow
     @Final
     private Minecraft minecraft;
@@ -40,7 +40,7 @@ public abstract class ItemRendererMixin {
             method = "render",
             at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V", ordinal = 0)
     )
-    public void avaritia$onRenderItem(ItemStack stack, ItemDisplayContext context, boolean leftHand, PoseStack mStack, MultiBufferSource buffers, int packedLight, int packedOverlay, BakedModel modelIn, CallbackInfo ci) {
+    public void renderblender$onRenderItem(ItemStack stack, ItemDisplayContext context, boolean leftHand, PoseStack mStack, MultiBufferSource buffers, int packedLight, int packedOverlay, BakedModel modelIn, CallbackInfo ci) {
         if (modelIn instanceof PerspectiveModel iItemRenderer) {
             mStack.pushPose();
             final PerspectiveModel renderer = (PerspectiveModel) iItemRenderer.applyTransform(context, mStack, leftHand);

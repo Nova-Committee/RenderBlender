@@ -3,6 +3,7 @@ package committee.nova.mods.renderblender;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
+import committee.nova.mods.renderblender.init.data.ModDataGen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -28,6 +29,7 @@ public class RenderBlenderLib
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(ModDataGen::gatherData);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
