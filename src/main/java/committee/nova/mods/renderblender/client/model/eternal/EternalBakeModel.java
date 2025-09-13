@@ -6,6 +6,7 @@ import committee.nova.mods.renderblender.RenderBlenderLib;
 import committee.nova.mods.renderblender.api.client.model.PerspectiveModelState;
 import committee.nova.mods.renderblender.api.client.model.bakedmodels.WrappedItemModel;
 import committee.nova.mods.renderblender.api.client.util.TransformUtils;
+import committee.nova.mods.renderblender.api.iface.IToolTransform;
 import committee.nova.mods.renderblender.client.shader.RBRenderTypes;
 import committee.nova.mods.renderblender.client.shader.RBShaders;
 import net.minecraft.client.Minecraft;
@@ -34,7 +35,11 @@ public class EternalBakeModel extends WrappedItemModel {
 
     @Override
     public void renderItem(ItemStack stack, ItemDisplayContext transformType, PoseStack pStack, MultiBufferSource source, int light, int overlay) {
-        this.parentState = TransformUtils.DEFAULT_ITEM;
+        if (stack.getItem() instanceof IToolTransform) {
+            this.parentState = TransformUtils.DEFAULT_TOOL;
+        } else {
+            this.parentState = TransformUtils.DEFAULT_ITEM;
+        }
         this.renderWrapped(stack, pStack, source, light, overlay, true);
         if (source instanceof MultiBufferSource.BufferSource bs) {
             bs.endBatch();

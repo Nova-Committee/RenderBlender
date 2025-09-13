@@ -8,6 +8,7 @@ import committee.nova.mods.renderblender.api.client.model.bakedmodels.WrappedIte
 import committee.nova.mods.renderblender.api.client.render.buffer.AlphaOverrideVertexConsumer;
 import committee.nova.mods.renderblender.api.client.util.TransformUtils;
 import committee.nova.mods.renderblender.api.client.util.colour.ColourARGB;
+import committee.nova.mods.renderblender.api.iface.IToolTransform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -72,7 +73,11 @@ public class HaloBakedModel extends WrappedItemModel {
 
     @Override
     public void renderItem(ItemStack stack, ItemDisplayContext transformType, PoseStack pStack, MultiBufferSource source, int packedLight, int packedOverlay) {
-        this.parentState = TransformUtils.DEFAULT_ITEM;
+        if (stack.getItem() instanceof IToolTransform) {
+            this.parentState = TransformUtils.DEFAULT_TOOL;
+        } else {
+            this.parentState = TransformUtils.DEFAULT_ITEM;
+        }
         if (transformType == ItemDisplayContext.GUI) {
             Minecraft.getInstance().getItemRenderer()
                     .renderQuadList(pStack, source.getBuffer(ItemBlockRenderTypes.getRenderType(stack, true)), List.of(this.haloQuad), stack, packedLight, packedOverlay);
