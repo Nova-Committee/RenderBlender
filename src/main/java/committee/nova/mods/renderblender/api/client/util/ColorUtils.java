@@ -1,4 +1,4 @@
-package committee.nova.mods.avaritia.api.client.util;
+package committee.nova.mods.renderblender.api.client.util;
 
 /**
  * ColorUtils

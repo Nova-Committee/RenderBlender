@@ -1,5 +1,6 @@
 package committee.nova.mods.renderblender.api.client.util;
 
+import committee.nova.mods.renderblender.api.utils.vec.Vector3;
 import net.minecraft.core.Direction;
 
 /**

@@ -2,6 +2,7 @@ package committee.nova.mods.renderblender.api.client.model;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.math.Transformation;
+import committee.nova.mods.renderblender.api.client.util.TransformUtils;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.world.item.ItemDisplayContext;
 

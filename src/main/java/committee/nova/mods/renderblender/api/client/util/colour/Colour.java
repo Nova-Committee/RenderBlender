@@ -1,7 +1,5 @@
 package committee.nova.mods.renderblender.api.client.util.colour;
 
-
-
 import committee.nova.mods.renderblender.api.utils.java.Copyable;
 import committee.nova.mods.renderblender.api.utils.math.MathUtils;
 

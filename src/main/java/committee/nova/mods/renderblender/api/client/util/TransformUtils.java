@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Transformation;
 import committee.nova.mods.renderblender.api.client.model.PerspectiveModelState;
 import committee.nova.mods.renderblender.api.utils.math.MathUtils;
+import committee.nova.mods.renderblender.api.utils.vec.Vector3;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.resources.model.ModelState;

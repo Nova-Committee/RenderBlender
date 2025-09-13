@@ -1,6 +1,6 @@
-package committee.nova.mods.avaritia.api.utils.vec.uv;
+package committee.nova.mods.renderblender.api.utils.vec.uv;
 
-import committee.nova.mods.avaritia.api.utils.vec.IrreversibleTransformationException;
+import committee.nova.mods.renderblender.api.utils.vec.IrreversibleTransformationException;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 public class ScaledIconTransformation extends IconTransformation {

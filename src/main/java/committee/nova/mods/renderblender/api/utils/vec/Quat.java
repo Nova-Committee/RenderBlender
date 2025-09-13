@@ -1,6 +1,6 @@
 package committee.nova.mods.renderblender.api.utils.vec;
 
-import committee.nova.mods.avaritia.api.utils.java.Copyable;
+import committee.nova.mods.renderblender.api.utils.java.Copyable;
 import org.joml.Quaterniond;
 import org.joml.Quaternionf;
 

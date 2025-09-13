@@ -1,6 +1,6 @@
-package committee.nova.mods.avaritia.api.utils.vec.uv;
+package committee.nova.mods.renderblender.api.utils.vec.uv;
 
-import committee.nova.mods.avaritia.api.client.render.CCRenderState;
+import committee.nova.mods.renderblender.api.client.render.CCRenderState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 public class IconTransformation extends UVTransformation {

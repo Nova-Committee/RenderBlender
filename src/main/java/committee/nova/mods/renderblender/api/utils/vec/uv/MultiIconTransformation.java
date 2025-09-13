@@ -1,7 +1,7 @@
 package committee.nova.mods.renderblender.api.utils.vec.uv;
 
-import committee.nova.mods.avaritia.api.client.render.CCRenderState;
-import committee.nova.mods.avaritia.api.utils.vec.IrreversibleTransformationException;
+import committee.nova.mods.renderblender.api.client.render.CCRenderState;
+import committee.nova.mods.renderblender.api.utils.vec.IrreversibleTransformationException;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import org.jetbrains.annotations.Nullable;
 

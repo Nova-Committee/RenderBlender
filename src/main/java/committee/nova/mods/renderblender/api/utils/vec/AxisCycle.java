@@ -1,4 +1,4 @@
-package committee.nova.mods.avaritia.api.utils.vec;
+package committee.nova.mods.renderblender.api.utils.vec;
 
 public class AxisCycle {
 

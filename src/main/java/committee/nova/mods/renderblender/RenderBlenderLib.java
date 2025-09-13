@@ -1,5 +1,7 @@
 package committee.nova.mods.renderblender;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -21,6 +23,7 @@ public class RenderBlenderLib
     public static ResourceLocation rl(String path) {
         return new ResourceLocation(MOD_ID, path);
     }
+    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().enableComplexMapKeySerialization().create();
     public RenderBlenderLib()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

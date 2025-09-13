@@ -1,6 +1,6 @@
-package committee.nova.mods.avaritia.api.utils.vec;
+package committee.nova.mods.renderblender.api.utils.vec;
 
-import committee.nova.mods.avaritia.api.utils.java.Copyable;
+import committee.nova.mods.renderblender.api.utils.java.Copyable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;

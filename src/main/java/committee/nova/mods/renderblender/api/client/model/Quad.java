@@ -20,10 +20,11 @@ package committee.nova.mods.renderblender.api.client.model;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import committee.nova.mods.avaritia.api.client.util.VertexUtils;
-import committee.nova.mods.avaritia.api.utils.math.MathUtils;
-import committee.nova.mods.avaritia.api.utils.vec.Cuboid6;
-import committee.nova.mods.avaritia.api.utils.vec.Vector3;
+import committee.nova.mods.renderblender.api.client.util.VertexUtils;
+import committee.nova.mods.renderblender.api.utils.math.InterpHelper;
+import committee.nova.mods.renderblender.api.utils.math.MathUtils;
+import committee.nova.mods.renderblender.api.utils.vec.Cuboid6;
+import committee.nova.mods.renderblender.api.utils.vec.Vector3;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
