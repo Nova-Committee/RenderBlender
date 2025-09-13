@@ -1,4 +1,4 @@
-package committee.nova.mods.renderblender.client.model;
+package committee.nova.mods.renderblender.client.model.hell;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -21,21 +21,17 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class UnstableBakeModel extends WrappedItemModel {
-    public static final float[] UNSTABLE_UVS = new float[40];
+public class HellBakeModel extends WrappedItemModel {
+    public static final float[] COSMIC_UVS = new float[40];
     private final List<ResourceLocation> maskSprite;
 
-    public UnstableBakeModel(final BakedModel wrapped, final List<ResourceLocation> maskSprite) {
+public HellBakeModel(final BakedModel wrapped, final List<ResourceLocation> maskSprite){
         super(wrapped);
         this.maskSprite = maskSprite;
-    }
-
-
+}
     @Override
     public void renderItem(ItemStack stack, ItemDisplayContext transformType, PoseStack pStack, MultiBufferSource source, int light, int overlay) {
-
-            this.parentState = TransformUtils.DEFAULT_ITEM;
+        this.parentState = TransformUtils.DEFAULT_ITEM;
 
         this.renderWrapped(stack, pStack, source, light, overlay, true);
         if (source instanceof MultiBufferSource.BufferSource bs) {
@@ -52,38 +48,32 @@ public class UnstableBakeModel extends WrappedItemModel {
             pitch = -(float) (mc.player.getXRot() * 2.0f * Math.PI / 360.0);
         }
 
-
-        RBShaders.unstableTime
+        RBShaders.hellTime
                 .set((System.currentTimeMillis() - RBShaders.renderTime) / 2000.0F);
-        RBShaders.unstableYaw.set(yaw);
-        RBShaders.unstablePitch.set(pitch);
-        RBShaders.unstableExternalScale.set(scale);
-        RBShaders.unstableOpacity.set(1.5F);
-
+        RBShaders.hellYaw.set(yaw);
+        RBShaders.hellPitch.set(pitch);
+        RBShaders.hellExternalScale.set(scale);
+        RBShaders.hellOpacity.set(1.0F);
 
 
         for (int i = 0; i < 10; ++i) {
             TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(RenderBlenderLib.rl("misc/cosmic_" + i));
-            UNSTABLE_UVS[i * 4] = sprite.getU0();
-            UNSTABLE_UVS[i * 4 + 1] = sprite.getV0();
-            UNSTABLE_UVS[i * 4 + 2] = sprite.getU1();
-            UNSTABLE_UVS[i * 4 + 3] = sprite.getV1();
+            COSMIC_UVS[i * 4] = sprite.getU0();
+            COSMIC_UVS[i * 4 + 1] = sprite.getV0();
+            COSMIC_UVS[i * 4 + 2] = sprite.getU1();
+            COSMIC_UVS[i * 4 + 3] = sprite.getV1();
+        }
+        if (RBShaders.hellUVs != null) {
+            RBShaders.hellUVs.set(COSMIC_UVS);
         }
 
-        if (RBShaders.unstableUVs != null) {
-            RBShaders.unstableUVs.set(UNSTABLE_UVS);
-        }
-
-        final VertexConsumer cons = source.getBuffer(RBRenderTypes.UNSTABLE);
+        final VertexConsumer cons = source.getBuffer(RBRenderTypes.HELL);
         List<TextureAtlasSprite> atlasSprite = new ArrayList<>();
         for (ResourceLocation res : maskSprite) {
             atlasSprite.add(Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(res));
         }
         mc.getItemRenderer().renderQuadList(pStack, cons, bakeItem(atlasSprite), stack, light, overlay);
     }
-
-
-
     @Override
     public @Nullable PerspectiveModelState getModelState() {
         return (PerspectiveModelState) this.parentState;
@@ -93,4 +83,5 @@ public class UnstableBakeModel extends WrappedItemModel {
     public boolean isCosmic() {
         return true;
     }
+
 }

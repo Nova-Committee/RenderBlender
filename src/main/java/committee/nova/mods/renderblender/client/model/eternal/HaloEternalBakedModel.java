@@ -1,4 +1,4 @@
-package committee.nova.mods.renderblender.client.model;
+package committee.nova.mods.renderblender.client.model.eternal;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

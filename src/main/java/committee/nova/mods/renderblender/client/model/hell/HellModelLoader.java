@@ -1,4 +1,4 @@
-package committee.nova.mods.renderblender.client.model;
+package committee.nova.mods.renderblender.client.model.hell;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -18,38 +18,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-
-public class EternalModelLoader implements IGeometryLoader<EternalModelLoader.EternalGeometry> {
-    public static final EternalModelLoader INSTANCE = new EternalModelLoader();
+public class HellModelLoader implements IGeometryLoader<HellModelLoader.HellGeometry> {
+    public static final HellModelLoader INSTANCE = new HellModelLoader();
 
     @Override
-    public EternalGeometry read(JsonObject modelContents, JsonDeserializationContext deserializationContext) throws JsonParseException {
-        JsonObject eternalObj = modelContents.getAsJsonObject("eternal");
-        if (eternalObj == null) {
-            throw new IllegalStateException("Missing 'eternal' object.");
+    public HellGeometry read(JsonObject modelContents, JsonDeserializationContext deserializationContext) throws JsonParseException {
+        JsonObject hellObj = modelContents.getAsJsonObject("hell");
+        if (hellObj == null) {
+            throw new IllegalStateException("Missing 'hell' object.");
         } else {
             List<String> maskTexture = new ArrayList<>();
-            if (eternalObj.has("mask") && eternalObj.get("mask").isJsonArray()) {
-                JsonArray masks = eternalObj.getAsJsonArray("mask");
+            if (hellObj.has("mask") && hellObj.get("mask").isJsonArray()) {
+                JsonArray masks = hellObj.getAsJsonArray("mask");
                 for (int i = 0; i < masks.size(); i++) {
                     maskTexture.add(masks.get(i).getAsString());
                 }
             } else {
-                maskTexture.add(GsonHelper.getAsString(eternalObj, "mask"));
+                maskTexture.add(GsonHelper.getAsString(hellObj, "mask"));
             }
             JsonObject clean = modelContents.deepCopy();
-            clean.remove("eternal");
+            clean.remove("hell");
             clean.remove("loader");
             BlockModel baseModel = deserializationContext.deserialize(clean, BlockModel.class);
-            return new EternalGeometry(baseModel, maskTexture);
+            return new HellGeometry(baseModel, maskTexture);
         }
     }
 
-    public static class EternalGeometry implements IUnbakedGeometry<EternalGeometry> {
+    public static class HellGeometry implements IUnbakedGeometry<HellGeometry> {
         private final BlockModel baseModel;
         private final List<String> maskTextures;
 
-        public EternalGeometry(final BlockModel baseModel, final List<String> maskTextures) {
+        public HellGeometry(final BlockModel baseModel, final List<String> maskTextures) {
             this.baseModel = baseModel;
             this.maskTextures = maskTextures;
         }
@@ -59,12 +58,13 @@ public class EternalModelLoader implements IGeometryLoader<EternalModelLoader.Et
             BakedModel baseBakedModel = this.baseModel.bake(baker, this.baseModel, spriteGetter, modelState, modelLocation, true);
             List<ResourceLocation> textures = new ArrayList<>();
             this.maskTextures.forEach(mask -> textures.add(new ResourceLocation(mask)));
-            return new EternalBakeModel(baseBakedModel, textures);
+            return new HellBakeModel(baseBakedModel, textures);
         }
 
         @Override
         public void resolveParents(Function<ResourceLocation, UnbakedModel> modelGetter, IGeometryBakingContext context) {
             this.baseModel.resolveParents(modelGetter);
         }
+
     }
 }

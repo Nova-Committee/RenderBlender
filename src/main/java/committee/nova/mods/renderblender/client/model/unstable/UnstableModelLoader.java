@@ -1,4 +1,4 @@
-package committee.nova.mods.renderblender.client.model;
+package committee.nova.mods.renderblender.client.model.unstable;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;

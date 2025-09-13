@@ -89,7 +89,7 @@ public class HaloModelLoader implements IGeometryLoader<HaloModelLoader.HaloItem
             this.pulse = pulse;
         }
 
-        static BakedModel tintLayers(final BakedModel model, final IntList layerColors) {
+        public static BakedModel tintLayers(final BakedModel model, final IntList layerColors) {
             if (layerColors.isEmpty()) {
                 return model;
             }
