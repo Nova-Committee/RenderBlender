@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "renderblender.refmap.json",
   "client": [
+    "RenderBuffersMixin",
     "ItemRendererMixin"
   ],
   "injectors": {
