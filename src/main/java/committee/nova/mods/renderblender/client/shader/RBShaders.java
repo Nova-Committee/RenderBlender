@@ -58,7 +58,6 @@ public class RBShaders {
     public static Uniform unstableOpacity;
     public static Uniform unstableUVs;
 
-    // Glow Edge shader uniforms
     public static Uniform glowColor;
     public static Uniform glowWidth;
     public static Uniform glowTime;
@@ -139,12 +138,12 @@ public class RBShaders {
     public static void glowEdgeShader(ShaderInstance e) {
         GLOW_EDGE_SHADER = (CCShaderInstance) e;
 
-        // 添加更好的错误处理，避免NullPointerException
+
         glowColor = GLOW_EDGE_SHADER.getUniform("glowColor");
         glowWidth = GLOW_EDGE_SHADER.getUniform("glowWidth");
         glowTime = GLOW_EDGE_SHADER.getUniform("time");
 
-        // 只有在uniform存在时才设置初始值
+
         if (glowTime != null) {
             glowTime.set((float) renderTime + renderFrame);
             GLOW_EDGE_SHADER.onApply(() -> {
