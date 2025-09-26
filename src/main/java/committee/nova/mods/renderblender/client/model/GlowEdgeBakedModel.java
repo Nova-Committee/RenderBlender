@@ -6,6 +6,7 @@ import committee.nova.mods.renderblender.api.client.model.PerspectiveModelState;
 import committee.nova.mods.renderblender.api.client.model.bakedmodels.WrappedItemModel;
 import committee.nova.mods.renderblender.api.client.render.item.IItemRenderer;
 import committee.nova.mods.renderblender.api.client.util.TransformUtils;
+import committee.nova.mods.renderblender.api.iface.IBowTransform;
 import committee.nova.mods.renderblender.api.iface.IToolTransform;
 import committee.nova.mods.renderblender.client.shader.RBRenderTypes;
 import committee.nova.mods.renderblender.client.shader.RBShaders;
@@ -45,7 +46,9 @@ public class GlowEdgeBakedModel extends WrappedItemModel implements IItemRendere
     public void renderItem(ItemStack stack, ItemDisplayContext ctx, PoseStack pStack, MultiBufferSource source, int light, int overlay) {
         if (stack.getItem() instanceof IToolTransform) {
             this.parentState = TransformUtils.DEFAULT_TOOL;
-        } else {
+        } else if (stack.getItem() instanceof IBowTransform) {
+            this.parentState = TransformUtils.DEFAULT_BOW;
+        } else{
             this.parentState = TransformUtils.DEFAULT_ITEM;
         }
         this.renderWrapped(stack, pStack, source, light, overlay, true);
